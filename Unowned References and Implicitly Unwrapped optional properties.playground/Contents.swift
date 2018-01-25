@@ -16,7 +16,7 @@ class Country {
 
 class City {
     let name: String
-    let country: Country
+    unowned let country: Country
     init(name: String, country: Country) {
         self.name = name
         self.country = country
@@ -24,8 +24,13 @@ class City {
     deinit {print("\(name) is being deinitialized")}
 }
 
-var canada = Country(name: "Canada", capitalName: "Ottawa")
-print("\(canada.name)'s capital city is called \(canada.capitalCity.name)")
-canada.capitalCity = City(name: "Vancouver", country: canada)
+func foo() {
+    let canada = Country(name: "Canada", capitalName: "Ottawa")
+    print("\(canada.name)'s capital city is called \(canada.capitalCity.name)")
+    let vancouver = City(name: "Vancouver", country: canada)
+    print(vancouver.country.name)
+    canada.capitalCity = vancouver
+    print(#line)
+}
 
-
+foo()
